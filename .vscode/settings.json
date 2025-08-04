@@ -1,0 +1,22 @@
+{
+    "cmake.sourceDirectory": "D:/Job/AIChatBot/ai_chat_bot_project/windows/flutter",
+
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+
+  "dart.analysisExcludedFolders": [
+    "build"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.rulers": [120],
+  "dart.previewFlutterUiGuides": true,
+  "dart.showTodos": true,
+  "dart.analysisServerEnableNotifications": true
+}
