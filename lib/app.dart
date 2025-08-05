@@ -1,5 +1,6 @@
+import 'package:ai_chat_bot_project/core/theme.dart';
+import 'package:ai_chat_bot_project/views/screens/onboard/onboarding_screen.dart';
 import 'package:flutter/material.dart';
-import 'views/onboard_2.dart';
 
 class AIChatBotApp extends StatelessWidget {
   const AIChatBotApp({super.key});
@@ -9,8 +10,8 @@ class AIChatBotApp extends StatelessWidget {
     return MaterialApp(
       title: 'AIChatBot App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
-      home: const Onboard2(),
+      theme: AppTheme.darkTheme,
+      home: const OnboardingScreen(),
     );
   }
 }
