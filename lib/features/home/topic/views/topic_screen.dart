@@ -1,21 +1,26 @@
 import 'package:ai_chat_bot_project/core/color.dart';
 import 'package:ai_chat_bot_project/core/icons.dart';
-import 'package:ai_chat_bot_project/features/home/topic/models/character_assistant.dart';
+import 'package:ai_chat_bot_project/features/home/topic/models/character_assistant_model.dart';
+import 'package:ai_chat_bot_project/features/home/topic/models/popular_prompts_model_topics.dart';
 import 'package:ai_chat_bot_project/features/home/topic/view_model/character_assistant_vm.dart';
+import 'package:ai_chat_bot_project/features/home/topic/view_model/popular_prompts_topic_vm.dart';
 import 'package:ai_chat_bot_project/widgets/character_card.dart';
+import 'package:ai_chat_bot_project/widgets/popular_prompt_topic_item.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_chat_bot_project/core/app_text_style.dart';
 import 'package:ai_chat_bot_project/core/images.dart';
-import 'package:ai_chat_bot_project/features/home/topic/models/explore_item.dart';
+import 'package:ai_chat_bot_project/features/home/topic/models/explore_item_model.dart';
 import 'package:ai_chat_bot_project/features/home/topic/view_model/explore_list_vm.dart';
 import 'package:ai_chat_bot_project/widgets/main_app_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class TopicScreen extends StatefulWidget {
   TopicScreen({super.key});
 
   final ExploreListViewModel exploreListViewModel = ExploreListViewModel();
   final CharacterAssistantViewModel characterAssistantViewModel = CharacterAssistantViewModel();
+  final PopularPromptsTopicViewModel popularPromptsTopicViewModel = PopularPromptsTopicViewModel();
 
   @override
   State<TopicScreen> createState() => _TopicScreenState();
@@ -26,7 +31,11 @@ class _TopicScreenState extends State<TopicScreen> {
   Widget build(BuildContext context) {
     final List<ExploreItem> exploreItemsList = widget.exploreListViewModel.items;
     final List<CharacterAssistant> assistantItemList = widget.characterAssistantViewModel.characters;
+    final List<PopularPromptsTopic> popularPromptsTopicItemsList = widget.popularPromptsTopicViewModel.items;
+
     final previewList = assistantItemList.length > 5 ? assistantItemList.take(5).toList() : assistantItemList;
+    final row1 = popularPromptsTopicItemsList.sublist(0, 3);
+    final row2 = popularPromptsTopicItemsList.sublist(3, 6);
     return Scaffold(
       appBar: MainAppBar(
         title: 'Topics',
@@ -36,59 +45,98 @@ class _TopicScreenState extends State<TopicScreen> {
         color: AppColors.background,
         child: Padding(
           padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                AppImages.bannerAI,
-                width: double.infinity,
-                fit: BoxFit.fill,
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Explore',
-                style: AppTextStyle.title18SemiBold,
-              ),
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: exploreItemsList.length,
-                  itemBuilder: (context, index) {
-                    final item = exploreItemsList[index];
-                    return _buildExploreButton(item);
-                  },
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  AppImages.bannerAI,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    'Assistants',
-                    style: AppTextStyle.title18SemiBold,
+                SizedBox(height: 20),
+                Text(
+                  'Explore',
+                  style: AppTextStyle.title18SemiBold,
+                ),
+                SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: exploreItemsList.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final item = exploreItemsList[index];
+                      return _buildExploreButton(item);
+                    },
                   ),
-                  SeeAllBtn(),
-                ],
-              ),
-              SizedBox(height: 16),
-              SizedBox(
-                height: 170,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: previewList.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
-                  itemBuilder: (context, index) {
-                    final character = previewList[index];
-                    return CharacterCard(
-                      character: character,
-                      onTap: () {},
-                    );
-                  },
                 ),
-              ),
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Assistants',
+                      style: AppTextStyle.title18SemiBold,
+                    ),
+                    SeeAllBtn(
+                      onTap: () => context.push('/see_assistant'),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                SizedBox(
+                  height: 170,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: previewList.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    separatorBuilder: (_, __) => const SizedBox(width: 12),
+                    itemBuilder: (context, index) {
+                      final character = previewList[index];
+                      return CharacterCard(
+                        character: character,
+                        onTap: () {},
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Popular Prompts',
+                      style: AppTextStyle.title18SemiBold,
+                    ),
+                    SeeAllBtn(
+                      onTap: () => context.push('/see_prompts'),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                SizedBox(
+                  height: 300,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          PopularPromptTopicItem(promp: row1[index]),
+                          const SizedBox(height: 16),
+                          PopularPromptTopicItem(promp: row2[index]),
+                        ],
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -144,14 +192,16 @@ class _TopicScreenState extends State<TopicScreen> {
 }
 
 class SeeAllBtn extends StatelessWidget {
+  final VoidCallback onTap;
   const SeeAllBtn({
     super.key,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Row(
         children: [
           Row(

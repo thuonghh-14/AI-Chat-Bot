@@ -30,6 +30,13 @@ class AppTextStyle {
     color: AppColors.white,
   );
 
+  static const TextStyle title18Medium = TextStyle(
+    fontFamily: 'SFProText',
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  );
+
   static const TextStyle interTitle14Medium = TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
@@ -42,5 +49,26 @@ class AppTextStyle {
     fontSize: 14,
     fontWeight: FontWeight.w400,
     color: AppColors.grayText,
+  );
+
+  static const TextStyle body14Semibold = TextStyle(
+    fontFamily: 'SFProText',
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  );
+
+  static const TextStyle title16Semibold = TextStyle(
+    fontFamily: 'SFProText',
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  );
+
+  static const TextStyle body10Regular = TextStyle(
+    fontFamily: 'SFProText',
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    color: AppColors.white,
   );
 }
