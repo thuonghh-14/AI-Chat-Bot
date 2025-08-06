@@ -8,8 +8,10 @@ class CustomButton extends StatelessWidget {
   final bool isDisabled;
   final String? icon;
   final double height;
+  final double widght;
   final double borderRadius;
   final TextStyle? textStyle;
+  final Color? backgroundColor;
 
   const CustomButton({
     super.key,
@@ -18,13 +20,15 @@ class CustomButton extends StatelessWidget {
     this.isDisabled = false,
     this.icon,
     this.height = 48,
+    this.widght = double.infinity,
     this.borderRadius = 12,
     this.textStyle,
+    this.backgroundColor = AppColors.lightGreen,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = isDisabled ? AppColors.disableButton : AppColors.lightGreen;
+    final bgColor = isDisabled ? AppColors.disableButton : backgroundColor;
     final textColor = isDisabled ? AppColors.disableText : AppColors.black;
 
     return Opacity(
@@ -33,6 +37,7 @@ class CustomButton extends StatelessWidget {
         onTap: isDisabled ? null : onPressed,
         child: Container(
           height: height,
+          width: widght,
           decoration: BoxDecoration(
             color: bgColor,
             borderRadius: BorderRadius.circular(borderRadius),

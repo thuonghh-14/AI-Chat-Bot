@@ -1,7 +1,5 @@
 import 'package:ai_chat_bot_project/core/color.dart';
-import 'package:ai_chat_bot_project/core/icons.dart';
 import 'package:ai_chat_bot_project/core/images.dart';
-import 'package:ai_chat_bot_project/views/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -59,8 +57,9 @@ class OnboardBaseScreen extends StatelessWidget {
             ),
             Expanded(
               flex: 3,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -81,14 +80,6 @@ class OnboardBaseScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 32),
-                    CustomButton(
-                      height: 72,
-                      borderRadius: 16,
-                      title: 'Continue',
-                      icon: AppIcons.icArrowRight,
-                      onPressed: () {},
-                    )
                   ],
                 ),
               ),
