@@ -1,8 +1,11 @@
 import 'dart:async';
-import 'package:ai_chat_bot_project/views/screens/onboard/onboard_four_screen.dart';
-import 'package:ai_chat_bot_project/views/screens/onboard/onboard_three_screen.dart';
-import 'package:ai_chat_bot_project/views/screens/onboard/onboard_two_screen.dart';
+import 'package:ai_chat_bot_project/core/icons.dart';
+import 'package:ai_chat_bot_project/features/onboard/onboard_four_screen.dart';
+import 'package:ai_chat_bot_project/features/onboard/onboard_three_screen.dart';
+import 'package:ai_chat_bot_project/features/onboard/onboard_two_screen.dart';
+import 'package:ai_chat_bot_project/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -26,7 +29,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(seconds: 10), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 7), (timer) {
       int nextPage = _currentIndex + 1;
       if (nextPage >= _pages.length) {
         nextPage = 0;
@@ -68,15 +71,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             left: 0,
             right: 0,
             child: Center(
-              child: SmoothPageIndicator(
-                controller: _controller,
-                count: _pages.length,
-                effect: WormEffect(
-                  dotHeight: 12,
-                  dotWidth: 12,
-                  activeDotColor: Colors.white,
-                  dotColor: Colors.white54,
-                ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: CustomButton(
+                      height: 72,
+                      borderRadius: 16,
+                      title: 'Continue',
+                      icon: AppIcons.icArrowRight,
+                      onPressed: () {
+                        context.go('/home');
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  SmoothPageIndicator(
+                    controller: _controller,
+                    count: _pages.length,
+                    effect: WormEffect(
+                      dotHeight: 12,
+                      dotWidth: 12,
+                      activeDotColor: Colors.white,
+                      dotColor: Colors.white54,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
