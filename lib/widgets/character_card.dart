@@ -1,6 +1,6 @@
 import 'package:ai_chat_bot_project/core/icons.dart';
 import 'package:ai_chat_bot_project/core/images.dart';
-import 'package:ai_chat_bot_project/features/home/topic/models/character_assistant.dart';
+import 'package:ai_chat_bot_project/features/home/topic/models/character_assistant_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

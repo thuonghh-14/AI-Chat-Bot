@@ -1,15 +1,19 @@
 import 'package:flutter/foundation.dart';
-import '../models/character_assistant.dart';
+import '../models/character_assistant_model.dart';
 import 'dart:convert';
 
 class CharacterAssistantViewModel extends ChangeNotifier {
   List<CharacterAssistant> _characters = [];
+  final int _pageSize = 15;
+  int _currentMax = 15;
 
   List<CharacterAssistant> get characters => _characters;
 
   CharacterAssistantViewModel() {
     loadCharacters();
   }
+
+  List<CharacterAssistant> get visibleCharacters => _characters.take(_currentMax).toList();
 
   void loadCharacters() {
     final jsonData = '''
@@ -178,4 +182,13 @@ class CharacterAssistantViewModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void loadMore() {
+    if (_currentMax < _characters.length) {
+      _currentMax += _pageSize;
+      notifyListeners();
+    }
+  }
+
+  bool get hasMore => _currentMax < _characters.length;
 }

@@ -5,6 +5,14 @@ class AppImages {
   static const String exploreAIGeneration = '${baseAsset}explore_ai_generation.png';
   static const String explorePDF = '${baseAsset}explore_pdf.png';
   static const String exploreAIScan = '${baseAsset}explore_ai_scan.png';
+  static const String icRocket = '${baseAsset}ic_rocket.png';
+  static const String icMoney = '${baseAsset}ic_money.png';
+  static const String icWrite = '${baseAsset}ic_write.png';
+  static const String icGuitar = '${baseAsset}ic_guitar.png';
+  static const String icSing = '${baseAsset}ic_sing.png';
+  static const String icEarth = '${baseAsset}ic_earth.png';
+  static const String icSave = '${baseAsset}ic_save.png';
+  static const String icUnsave = '${baseAsset}ic_unsave.png';
 
   static const Map<int, String> characterBg = {
     1: '${baseAsset}einstein.png',
