@@ -104,7 +104,7 @@ class _TopicScreenState extends State<TopicScreen> {
                     },
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,

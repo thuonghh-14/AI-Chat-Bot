@@ -13,6 +13,9 @@ class AppImages {
   static const String icEarth = '${baseAsset}ic_earth.png';
   static const String icSave = '${baseAsset}ic_save.png';
   static const String icUnsave = '${baseAsset}ic_unsave.png';
+  static const String icPDF = '${baseAsset}ic_pdf.png';
+  static const String icScan = '${baseAsset}ic_scan.png';
+  static const String icMic = '${baseAsset}ic_mic.png';
 
   static const Map<int, String> characterBg = {
     1: '${baseAsset}einstein.png',
