@@ -93,7 +93,6 @@ class _TopicScreenState extends State<TopicScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   itemCount: previewList.length,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, __) => const SizedBox(width: 12),
                   itemBuilder: (context, index) {
                     final character = previewList[index];
