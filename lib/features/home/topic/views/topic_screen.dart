@@ -6,6 +6,7 @@ import 'package:ai_chat_bot_project/features/home/topic/view_model/character_ass
 import 'package:ai_chat_bot_project/features/home/topic/view_model/popular_prompts_topic_vm.dart';
 import 'package:ai_chat_bot_project/widgets/character_card.dart';
 import 'package:ai_chat_bot_project/widgets/popular_prompt_topic_item.dart';
+import 'package:ai_chat_bot_project/widgets/summarizer_button.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_chat_bot_project/core/app_text_style.dart';
 import 'package:ai_chat_bot_project/core/images.dart';
@@ -14,6 +15,7 @@ import 'package:ai_chat_bot_project/features/home/topic/view_model/explore_list_
 import 'package:ai_chat_bot_project/widgets/main_app_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:ui';
 
 class TopicScreen extends StatefulWidget {
   TopicScreen({super.key});
@@ -41,102 +43,99 @@ class _TopicScreenState extends State<TopicScreen> {
         title: 'Topics',
         count: 5,
       ),
-      body: Container(
-        color: AppColors.background,
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  AppImages.bannerAI,
-                  width: double.infinity,
-                  fit: BoxFit.fill,
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                AppImages.bannerAI,
+                width: double.infinity,
+                fit: BoxFit.fill,
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Explore',
+                style: AppTextStyle.title18SemiBold,
+              ),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: exploreItemsList.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final item = exploreItemsList[index];
+                    return _buildExploreButton(item);
+                  },
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Explore',
-                  style: AppTextStyle.title18SemiBold,
-                ),
-                SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: exploreItemsList.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final item = exploreItemsList[index];
-                      return _buildExploreButton(item);
-                    },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'Assistants',
+                    style: AppTextStyle.title18SemiBold,
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Assistants',
-                      style: AppTextStyle.title18SemiBold,
-                    ),
-                    SeeAllBtn(
-                      onTap: () => context.push('/see_assistant'),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                SizedBox(
-                  height: 170,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: previewList.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    separatorBuilder: (_, __) => const SizedBox(width: 12),
-                    itemBuilder: (context, index) {
-                      final character = previewList[index];
-                      return CharacterCard(
-                        character: character,
-                        onTap: () {},
-                      );
-                    },
+                  SeeAllBtn(
+                    onTap: () => context.push('/see_assistant'),
                   ),
+                ],
+              ),
+              SizedBox(height: 16),
+              SizedBox(
+                height: 170,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: previewList.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  separatorBuilder: (_, __) => const SizedBox(width: 12),
+                  itemBuilder: (context, index) {
+                    final character = previewList[index];
+                    return CharacterCard(
+                      character: character,
+                      onTap: () {},
+                    );
+                  },
                 ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Popular Prompts',
-                      style: AppTextStyle.title18SemiBold,
-                    ),
-                    SeeAllBtn(
-                      onTap: () => context.push('/see_prompts'),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                SizedBox(
-                  height: 300,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          PopularPromptTopicItem(promp: row1[index]),
-                          const SizedBox(height: 16),
-                          PopularPromptTopicItem(promp: row2[index]),
-                        ],
-                      );
-                    },
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'Popular Prompts',
+                    style: AppTextStyle.title18SemiBold,
                   ),
-                )
-              ],
-            ),
+                  SeeAllBtn(
+                    onTap: () => context.push('/see_prompts'),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              SizedBox(
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        PopularPromptTopicItem(promp: row1[index]),
+                        const SizedBox(height: 16),
+                        PopularPromptTopicItem(promp: row2[index]),
+                      ],
+                    );
+                  },
+                ),
+              )
+            ],
           ),
         ),
       ),
@@ -152,7 +151,49 @@ class _TopicScreenState extends State<TopicScreen> {
         ),
         backgroundColor: AppColors.transparent,
       ),
-      onPressed: () {},
+      onPressed: () {
+        if (item.id == 2) {
+          showModalBottomSheet(
+            context: context,
+            barrierColor: AppColors.blackGrey.withOpacity(0.8),
+            backgroundColor: AppColors.black,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            ),
+            builder: (context) => Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Summarizers',
+                    style: AppTextStyle.title18Medium,
+                  ),
+                  const SizedBox(height: 24),
+                  SummarizerButton(
+                    onTap: () {
+                      context.push('/summarizers_pdf');
+                    },
+                    title: 'Summarizer PDF',
+                    imagePath: AppImages.icPDFSum,
+                    isPremium: true,
+                  ),
+                  const SizedBox(height: 12),
+                  SummarizerButton(
+                    onTap: () {
+                      context.push('/summarizers_web');
+                    },
+                    title: 'Summarizer Web Page',
+                    imagePath: AppImages.icLink,
+                    isPremium: true,
+                  ),
+                ],
+              ),
+            ),
+          );
+        } else {}
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

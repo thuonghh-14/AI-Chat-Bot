@@ -45,11 +45,13 @@ class _SeeAllAssistantScreenState extends ConsumerState<SeeAllAssistantScreen> {
         leading: BackButton(
           onPressed: () => context.pop(),
         ),
-        title: Text('Assistants', style: AppTextStyle.body14Medium),
+        title: Text(
+          'Assistants',
+          style: AppTextStyle.title18Medium,
+        ),
         centerTitle: true,
       ),
       body: Container(
-        color: AppColors.black,
         padding: const EdgeInsets.all(16),
         child: GridView.builder(
           controller: _scrollController,

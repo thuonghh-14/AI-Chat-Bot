@@ -71,4 +71,18 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
     color: AppColors.white,
   );
+
+  static const TextStyle title16Medium = TextStyle(
+    fontFamily: 'SFProText',
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.grayText,
+  );
+
+  static const TextStyle body12Regular = TextStyle(
+    fontFamily: 'SFProText',
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColors.white,
+  );
 }

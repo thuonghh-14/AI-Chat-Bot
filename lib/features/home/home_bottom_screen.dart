@@ -60,6 +60,7 @@ class _HomeBottomScreenState extends State<HomeBottomScreen> {
                     ),
                     Expanded(
                       child: TextField(
+                        enabled: false,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Ask another question',
                         ),

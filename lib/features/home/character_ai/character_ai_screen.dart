@@ -1,3 +1,4 @@
+import 'package:ai_chat_bot_project/widgets/main_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class CharacterAiScreen extends StatelessWidget {
@@ -5,6 +6,11 @@ class CharacterAiScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: MainAppBar(
+        title: 'Character AI',
+        count: 5,
+      ),
+    );
   }
 }

@@ -16,6 +16,10 @@ class AppImages {
   static const String icPDF = '${baseAsset}ic_pdf.png';
   static const String icScan = '${baseAsset}ic_scan.png';
   static const String icMic = '${baseAsset}ic_mic.png';
+  static const String icPDFSum = '${baseAsset}ic_pdf_sum.png';
+  static const String icPremiumSum = '${baseAsset}ic_premium_sum.png';
+  static const String icLink = '${baseAsset}ic_link.png';
+  static const String icAdd = '${baseAsset}ic_add.png';
 
   static const Map<int, String> characterBg = {
     1: '${baseAsset}einstein.png',
