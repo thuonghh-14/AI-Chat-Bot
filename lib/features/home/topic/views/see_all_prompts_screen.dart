@@ -66,96 +66,96 @@ class _SeeAllPromptsState extends ConsumerState<SeeAllPromptsScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(onPressed: () => context.pop()),
-        title: Text('Assistants', style: AppTextStyle.body14Medium),
+        title: Text(
+          'Assistants',
+          style: AppTextStyle.title18Medium,
+        ),
         centerTitle: true,
       ),
-      body: Container(
-        color: AppColors.black,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 29,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final isSelected = index == selectedIndex;
-                    final category = categories[index];
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 29,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  final isSelected = index == selectedIndex;
+                  final category = categories[index];
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: GestureDetector(
-                        onTap: () {
-                          ref.read(categoryViewModelProvider).selectCategory(index);
-                          ref.read(popularPromptsProvider.notifier).fetchPrompts();
-                        },
-                        child: Container(
-                          width: 120,
-                          height: 29,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: isSelected ? AppColors.lightGreen : AppColors.blackGrey,
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: Text(
-                            category.title,
-                            style: isSelected
-                                ? AppTextStyle.body14Medium.copyWith(color: AppColors.black)
-                                : AppTextStyle.body14Regular.copyWith(color: AppColors.white),
-                          ),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: GestureDetector(
+                      onTap: () {
+                        ref.read(categoryViewModelProvider).selectCategory(index);
+                        ref.read(popularPromptsProvider.notifier).fetchPrompts();
+                      },
+                      child: Container(
+                        width: 120,
+                        height: 29,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: isSelected ? AppColors.lightGreen : AppColors.blackGrey,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Text(
+                          category.title,
+                          style: isSelected
+                              ? AppTextStyle.body14Medium.copyWith(color: AppColors.black)
+                              : AppTextStyle.body14Regular.copyWith(color: AppColors.white),
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-              const SizedBox(height: 12),
-              Expanded(
-                child: promptsAsync.when(
-                  data: (prompts) {
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: GridView.builder(
-                            controller: _scrollController,
-                            itemCount: prompts.length,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 12,
-                              crossAxisSpacing: 12,
-                              childAspectRatio: 136 / 101,
-                            ),
-                            itemBuilder: (context, index) {
-                              return PopularPromptSeeAllItem(promp: prompts[index]);
-                            },
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: promptsAsync.when(
+                data: (prompts) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                          controller: _scrollController,
+                          itemCount: prompts.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 12,
+                            crossAxisSpacing: 12,
+                            childAspectRatio: 136 / 101,
+                          ),
+                          itemBuilder: (context, index) {
+                            return PopularPromptSeeAllItem(promp: prompts[index]);
+                          },
+                        ),
+                      ),
+                      if (_isLoadingMore && viewModel.hasMore)
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
                           ),
                         ),
-                        if (_isLoadingMore && viewModel.hasMore)
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            ),
-                          ),
-                      ],
-                    );
-                  },
-                  loading: () => const Center(child: CircularProgressIndicator()),
-                  error: (e, _) => Center(
-                    child: Text(
-                      'Failed to load prompts\n$e',
-                      style: AppTextStyle.body14Regular.copyWith(color: AppColors.red),
-                      textAlign: TextAlign.center,
-                    ),
+                    ],
+                  );
+                },
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (e, _) => Center(
+                  child: Text(
+                    'Failed to load prompts\n$e',
+                    style: AppTextStyle.body14Regular.copyWith(color: AppColors.red),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -7,6 +7,10 @@ class AppTheme {
       brightness: Brightness.dark,
       splashColor: AppColors.transparent,
       highlightColor: AppColors.transparent,
+      scaffoldBackgroundColor: AppColors.black,
+      appBarTheme: AppBarTheme(
+        color: AppColors.black,
+      ),
       textTheme: const TextTheme(
         bodyMedium: TextStyle(
           fontFamily: 'SFProText',
